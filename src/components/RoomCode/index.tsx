@@ -4,10 +4,9 @@ import './styles.scss';
 
 type RoomCodeProps = {
   code: string;
-}
+};
 
 export function RoomCode({ code }: RoomCodeProps) {
-
   function copyRoomCodeToClipboard() {
     navigator.clipboard.writeText(code);
   }
@@ -19,5 +18,5 @@ export function RoomCode({ code }: RoomCodeProps) {
       </div>
       <span>Sala -Md93Lrkjeo37hQRLfsw</span>
     </button>
-  )
+  );
 }

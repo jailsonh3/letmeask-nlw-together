@@ -16,11 +16,10 @@ export function NewRoom() {
   const history = useHistory();
   const [newRow, setNewRoom] = useState('');
 
-
   async function handleCreateRoom(event: FormEvent) {
     event.preventDefault();
 
-    if(newRow.trim() === ''){
+    if (newRow.trim() === '') {
       return;
     }
 
@@ -37,18 +36,21 @@ export function NewRoom() {
   return (
     <div id="page-auth">
       <aside>
-          <img src={illustrationImg} alt="Ilustração simbolizando perguntas e respotas" />
-          <strong>Crie salas de Q&amp;A ao-vivo</strong>
-          <p>Tire as dúvidas da sua audiência em tempo-real</p>
+        <img
+          src={illustrationImg}
+          alt="Ilustração simbolizando perguntas e respotas"
+        />
+        <strong>Crie salas de Q&amp;A ao-vivo</strong>
+        <p>Tire as dúvidas da sua audiência em tempo-real</p>
       </aside>
       <main>
         <div className="main-content">
           <img src={logoImg} alt="Letmeask" />
           <h2>Criar um nova sala</h2>
           <form onSubmit={handleCreateRoom}>
-            <input 
+            <input
               type="text"
-              placeholder="Digite o código da sala" 
+              placeholder="Digite o código da sala"
               onChange={event => setNewRoom(event.target.value)}
               value={newRow}
             />
@@ -60,5 +62,5 @@ export function NewRoom() {
         </div>
       </main>
     </div>
-  )
+  );
 }

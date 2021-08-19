@@ -1,6 +1,6 @@
-import { createContext, ReactNode, useEffect, useState } from "react";
+import { createContext, ReactNode, useEffect, useState } from 'react';
 
-import { auth, firebase } from "../services/firebase";
+import { auth, firebase } from '../services/firebase';
 
 type User = {
   id: string;
@@ -15,7 +15,7 @@ type AuthContextType = {
 
 type AuthContextProviderProps = {
   children: ReactNode;
-}
+};
 
 export const AuthContext = createContext({} as AuthContextType);
 
@@ -41,29 +41,27 @@ export function AuthContextProvider({ children }: AuthContextProviderProps) {
 
     return () => {
       unsubscribe();
-    }
-
+    };
   }, []);
 
   async function signInWithGoolge() {
-      const provider = new firebase.auth.GoogleAuthProvider();
+    const provider = new firebase.auth.GoogleAuthProvider();
 
-      const result = await auth.signInWithPopup(provider);
-      
-      if (result.user) {
-        const { displayName, photoURL, uid } = result.user;
+    const result = await auth.signInWithPopup(provider);
 
-        if (!displayName || !photoURL) {
-          throw new Error('Missing information from Google Account.');
-        }
+    if (result.user) {
+      const { displayName, photoURL, uid } = result.user;
 
-        setUser({
-          id: uid,
-          name: displayName,
-          avatar: photoURL,
-        });
+      if (!displayName || !photoURL) {
+        throw new Error('Missing information from Google Account.');
       }
-      
+
+      setUser({
+        id: uid,
+        name: displayName,
+        avatar: photoURL,
+      });
+    }
   }
 
   return (

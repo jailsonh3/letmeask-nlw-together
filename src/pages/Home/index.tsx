@@ -18,7 +18,7 @@ export function Home() {
   const { user, signInWithGoolge } = useAuth();
 
   async function handleCreateRoom() {
-    if(!user) {
+    if (!user) {
       await signInWithGoolge();
     }
 
@@ -30,24 +30,32 @@ export function Home() {
 
     if (roomCode.trim() === '') {
       return;
-    } 
+    }
 
     const roomRef = await database.ref(`rooms/${roomCode}`).get();
 
     if (!roomRef.exists()) {
-      alert('Room does not exists.')
+      alert('Room does not exists.');
       return;
     }
 
-    history.push(`/rooms/${roomCode}`)
+    if (roomRef.val().endedAt) {
+      alert('Room already closed.');
+      return;
+    }
+
+    history.push(`/rooms/${roomCode}`);
   }
 
   return (
     <div id="page-auth">
       <aside>
-          <img src={illustrationImg} alt="Ilustração simbolizando perguntas e respotas" />
-          <strong>Crie salas de Q&amp;A ao-vivo</strong>
-          <p>Tire as dúvidas da sua audiência em tempo-real</p>
+        <img
+          src={illustrationImg}
+          alt="Ilustração simbolizando perguntas e respotas"
+        />
+        <strong>Crie salas de Q&amp;A ao-vivo</strong>
+        <p>Tire as dúvidas da sua audiência em tempo-real</p>
       </aside>
       <main>
         <div className="main-content">
@@ -58,9 +66,9 @@ export function Home() {
           </button>
           <div className="separator">ou entre em uma sala</div>
           <form onSubmit={handleJoinRoom}>
-            <input 
+            <input
               type="text"
-              placeholder="Digite o código da sala" 
+              placeholder="Digite o código da sala"
               onChange={event => setRoomCode(event.target.value)}
               value={roomCode}
             />
@@ -69,5 +77,5 @@ export function Home() {
         </div>
       </main>
     </div>
-  )
+  );
 }
